@@ -6,9 +6,11 @@
   <title>Cracker Box Order Form</title>
   <link rel="stylesheet" href="style.css">
   <style>
-  body {
+    body {
       font-family: Arial, sans-serif;
       padding: 20px;
+      margin: 0;
+      box-sizing: border-box;
     }
 
     h2 {
@@ -20,17 +22,17 @@
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
-      table-layout: fixed; /* Ensures consistent column widths */
     }
 
     th, td {
       padding: 10px;
       text-align: center;
       border: 1px solid #ccc;
+      word-wrap: break-word; /* Ensure long text wraps */
     }
 
     th {
-      background-color: #f4f4f4; /* Highlight headers for better visibility */
+      background-color: #f4f4f4;
     }
 
     input[type="number"] {
@@ -41,7 +43,7 @@
     .totals {
       margin-bottom: 20px;
       font-weight: bold;
-      text-align: center; /* Align totals to the center */
+      text-align: center;
     }
 
     label {
@@ -67,11 +69,26 @@
       font-size: 16px;
       cursor: pointer;
       display: block;
-      margin: 0 auto; /* Center the button */
+      margin: 0 auto;
     }
 
     button:hover {
       background-color: #1ebc5c;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      table {
+        width: 100%;
+      }
+
+      th, td {
+        font-size: 14px; /* Smaller font for mobile */
+      }
+
+      input[type="number"] {
+        width: 30px;
+      }
     }
   </style>
 </head>
