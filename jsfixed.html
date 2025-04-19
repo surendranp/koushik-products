@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cracker Box Order Form</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+
+  input[type="number"] {
+    width: 60px;
+    padding: 5px;
+  }
+
+  .totals {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #1ebc5c;
+  }
+</style>
+</head>
+<body>
+
+<h2>🎆 Cracker Box Order Form 🎇</h2>
+
+<form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
+  <h1>Single Sound Cracker</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Product Name</th>
+        <th>Rate (₹)</th>
+        <th>Packet</th>
+        <th>Cost (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="S.No">1</td>
+        <td data-label="Product Name">4 Lakshmi</td>
+        <td data-label="Rate">19.40</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(0)">
+        </td>
+        <td data-label="Cost">₹<span id="cost0">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">2</td>
+        <td data-label="Product Name">3½ Lakshmi</td>
+        <td data-label="Rate">14.142</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(1)">
+        </td>
+        <td data-label="Cost">₹<span id="cost1">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">3</td>
+        <td data-label="Product Name">2¾ Kuruvi</td>
+        <td data-label="Rate">10.99</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(2)">
+        </td>
+        <td data-label="Cost">₹<span id="cost2">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">4</td>
+        <td data-label="Product Name">Deluxe Lakshmi</td>
+        <td data-label="Rate">37.27</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(2)">
+        </td>
+        <td data-label="Cost">₹<span id="cost3">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">5</td>
+        <td data-label="Product Name">	Elephant</td>
+        <td data-label="Rate">67.76</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(2)">
+        </td>
+        <td data-label="Cost">₹<span id="cost4">0</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Ground chacker -start  -->
+  <h1>Ground Chacker</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Product Name</th>
+        <th>Rate (₹)</th>
+        <th>Packet</th>
+        <th>Cost (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="S.No">1</td>
+        <td data-label="Product Name">Ground Chakkar Big (10 Pcs)</td>
+        <td data-label="Rate">39.42</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(0)">
+        </td>
+        <td data-label="Cost">₹<span id="cost5">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">2</td>
+        <td data-label="Product Name">Ground Chakkar Ashoka</td>
+        <td data-label="Rate">58.51</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(1)">
+        </td>
+        <td data-label="Cost">₹<span id="cost6">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">3</td>
+        <td data-label="Product Name">Ground Chakkar Special</td>
+        <td data-label="Rate">67.95</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(2)">
+        </td>
+        <td data-label="Cost">₹<span id="cost7">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">4</td>
+        <td data-label="Product Name">Ground Chakkar Deluxe</td>
+        <td data-label="Rate">136.6</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(2)">
+        </td>
+        <td data-label="Cost">₹<span id="cost8">0</span></td>
+      </tr>
+      <tr>  
+    </tbody>
+  </table>
+  <!-- Flowerport-start  -->
+  <h1>FlowerPots</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Product Name</th>
+        <th>Rate (₹)</th>
+        <th>Packet</th>
+        <th>Cost (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td data-label="S.No">1</td>
+  <td data-label="Product Name">Flowerpots Small</td>
+  <td data-label="Rate">43.47</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost9">0</span></td>
+</tr>
+<tr>
+  <td data-label="S.No">2</td>
+  <td data-label="Product Name">Flowerpots Big</td>
+  <td data-label="Rate">68.99</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost10">0</span></td>
+</tr>
+<tr>
+  <td data-label="S.No">3</td>
+  <td data-label="Product Name">Flowerpots Special</td>
+  <td data-label="Rate">92.13</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost11">0</span></td>
+</tr>
+<tr>
+  <td data-label="S.No">4</td>
+  <td data-label="Product Name">Flowerpots Deluxe</td>
+  <td data-label="Rate">270.0</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost12">0</span></td>
+</tr>
+<tr>
+  <td data-label="S.No">5</td>
+  <td data-label="Product Name">Flowerpots Ashoka</td>
+  <td data-label="Rate">98.60</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost13">0</span></td>
+</tr>
+<tr>
+  <td data-label="S.No">6</td>
+  <td data-label="Product Name">Colourkoti Red (5 Pcs)</td>
+  <td data-label="Rate">192.02</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost14">0</span></td>
+</tr>
+<tr>
+  <td data-label="S.No">7</td>
+  <td data-label="Product Name">Colourkoti (10 Pcs)</td>
+  <td data-label="Rate">276.20</td>
+  <td data-label="Boxes">
+    <input type="number" min="0" value="0" onchange="updateRate(2)">
+  </td>
+  <td data-label="Cost">₹<span id="cost15">0</span></td>
+</tr>
+    </tbody>
+  </table>
+color pencil -satart 
+<h1>Color Pencil</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Product Name</th>
+        <th>Rate (₹)</th>
+        <th>Packet</th>
+        <th>Cost (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="S.No">1</td>
+        <td data-label="Product Name">7 Colour Pencil</td>
+        <td data-label="Rate">29.57</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(0)">
+        </td>
+        <td data-label="Cost">₹<span id="cost16">0</span></td>
+      </tr>
+      <tr>
+        <td data-label="S.No">2</td>
+        <td data-label="Product Name">10 Colour Pencil</td>
+        <td data-label="Rate">57.01</td>
+        <td data-label="Boxes">
+          <input type="number" min="0" value="0" onchange="updateRate(1)">
+        </td>
+        <td data-label="Cost">₹<span id="cost17">0</span></td>
+      </tr>
+      <tr>  
+    </tbody>
+  </table>
+twinkling start 
+<h1>Twinkling Star</h1>
+<table>
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Product Name</th>
+      <th>Rate (₹)</th>
+      <th>Packet</th>
+      <th>Cost (₹)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="S.No">1</td>
+      <td data-label="Product Name">1½ Twinkling Star</td>
+      <td data-label="Rate">33.88</td>
+      <td data-label="Boxes">
+        <input type="number" min="0" value="0" onchange="updateRate(0)">
+      </td>
+      <td data-label="Cost">₹<span id="cost18">0</span></td>
+    </tr>
+    <tr>
+      <td data-label="S.No">2</td>
+      <td data-label="Product Name">4 Twinkling Star</td>
+      <td data-label="Rate">78.23</td>
+      <td data-label="Boxes">
+        <input type="number" min="0" value="0" onchange="updateRate(1)">
+      </td>
+      <td data-label="Cost">₹<span id="cost18">0</span></td>
+    </tr>
+    <tr>  
+  </tbody>
+</table>
+C Crackers 
+<h1>C Crackers</h1>
+<table>
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Product Name</th>
+      <th>Rate (₹)</th>
+      <th>Packet</th>
+      <th>Cost (₹)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="S.No">1</td>
+      <td data-label="Product Name">28 C</td>
+      <td data-label="Rate">13.60</td>
+      <td data-label="Boxes">
+        <input type="number" min="0" value="0" onchange="updateRate(0)">
+      </td>
+      <td data-label="Cost">₹<span id="cost19">0</span></td>
+    </tr>
+    <tr>
+      <td data-label="S.No">2</td>
+      <td data-label="Product Name">56 C</td>
+      <td data-label="Rate">27.20</td>
+      <td data-label="Boxes">
+        <input type="number" min="0" value="0" onchange="updateRate(1)">
+      </td>
+      <td data-label="Cost">₹<span id="cost20">0</span></td>
+    </tr>
+    <tr>  
+  </tbody>
+</table>
+
+
+  <div class="totals">
+    Total Boxes: <span id="totalBoxes">0</span> &nbsp;&nbsp; | &nbsp;&nbsp;
+    Total Cost: ₹<span id="totalCost">0</span>
+  </div>
+
+  <label>Your Name:
+    <input type="text" id="name" required>
+  </label>
+
+  <label>Your Phone:
+    <input type="tel" id="phone" required>
+  </label>
+
+  <label>Your Location:
+    <input type="text" id="location" required>
+  </label>
+
+  <button type="submit">Send to WhatsApp</button>
+</form>
+
+<script>
+  const prices = [19.40, 14.142, 10.99, 37.27, 67.76, 39.42, 58.51, 67.95,136.6, 43.47, 68.99, 92.13, 270.0, 98.60, 192.02, 276.20, 29.57, 57.01, 33.88, 78.23, 13.60, 27.20,
+    ];
+  // const productNames = ["Mini Box", "Standard Box", "Premium Box"];
+  const productNames = Array.from(document.querySelectorAll('td[data-label="Product Name"]')).map(td => td.textContent.trim());
+
+  function updateRate(index) {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    const qty = parseInt(inputs[index].value) || 0;
+    const cost = qty * prices[index];
+    document.getElementById(`cost${index}`).textContent = cost.toFixed(2);
+    updateTotals();
+  }
+
+  function updateTotals() {
+    let totalBoxes = 0;
+    let totalCost = 0;
+    const inputs = document.querySelectorAll('input[type="number"]');
+
+    inputs.forEach((input, index) => {
+      const qty = parseInt(input.value) || 0;
+      totalBoxes += qty;
+      totalCost += qty * prices[index];
+    });
+
+    document.getElementById("totalBoxes").textContent = totalBoxes;
+    document.getElementById("totalCost").textContent = totalCost.toFixed(2);
+  }
+
+  function sendToWhatsApp() {
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const inputs = document.querySelectorAll('input[type="number"]');
+
+    if (!name || !phone || !location) {
+      alert("Please fill out all the fields.");
+      return;
+    }
+
+    let message = `*🎆 Cracker Box Order Summary 🎇*%0A%0A`;
+    let totalBoxes = 0;
+    let totalCost = 0;
+
+    inputs.forEach((input, index) => {
+      const qty = parseInt(input.value) || 0;
+      if (qty > 0) {
+        const cost = qty * prices[index];
+        message += `${index + 1}. ${productNames[index]} - ${qty} box(es) - ₹${cost.toFixed(2)}%0A`;
+        totalBoxes += qty;
+        totalCost += cost;
+      }
+    });
+
+    message += `%0A*Total Boxes:* ${totalBoxes}%0A*Total Cost:* ₹${totalCost.toFixed(2)}%0A`;
+    message += `%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *Location:* ${location}%0A`;
+    message += `%0A📝 Please confirm my order.`;
+
+    const phoneNumber = "916369471949"; // Change this to your WhatsApp number
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappURL, "_blank");
+  }
+</script>
+
+</body>
+</html>
