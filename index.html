@@ -232,7 +232,7 @@ h2{
     </label>
   
     <label>Your Message:
-      <input type="text" id="message">
+      <input type="textarea" id="message">
     </label>
   
     <button type="submit">Send to WhatsApp</button>
@@ -605,7 +605,7 @@ h2{
     }
 
     const encodedMessage = encodeURIComponent(orderSummary);
-    const whatsappNumber = "919123456789"; // Replace with your actual number (with country code, no +)
+    const whatsappNumber = "916369471949"; // Replace with your actual number (with country code, no +)
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
     window.open(whatsappURL, "_blank");
