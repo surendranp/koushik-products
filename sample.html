@@ -1,140 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cracker Box Order Form</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
- 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+<style>
     body {
       font-family: Arial, sans-serif;
-      padding: 0;
-      margin: 0;
+      padding: 0px;
+      margin: 0px;
+      box-sizing: border-box;
     }
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #222;
-      padding: 10px 20px;
-      position: relative;
-    }
-
-    .navbar .logo img {
-      height: 40px;
-    }
-
-    .menu-icon {
-      display: none;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .navbar-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .navbar-links a {
-      color: #fff;
-      text-decoration: none;
-      padding: 8px;
-    }
-
-    .navbar-links a:hover {
-      background-color: #444;
-      border-radius: 5px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .menu-icon {
-        display: block;
-      }
-
-      .navbar-links {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background-color: #222;
-        flex-direction: column;
-        padding: 10px 0;
-        z-index: 999;
-      }
-
-      .navbar.active .navbar-links {
-        display: flex;
-      }
-
-      .navbar-links a {
-        text-align: left;
-        padding: 10px 20px;
-        width: 100%;
-      }
-    }
-
-    /* Main Content */
-    h1 {
+    h2 {
       text-align: center;
-      /* margin: 20px 0; */
-    }
-
-    form {
-      padding: 20px;
+      margin-bottom: 14px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      /* margin-bottom: 20px; */
+      margin-bottom: 20px;
     }
 
     th, td {
-      padding: 10px;
       text-align: center;
       border: 1px solid #ccc;
-      word-wrap: break-word;
+      word-wrap: break-word; /* Ensure long text wraps */
     }
 
     th {
       background-color: #f4f4f4;
     }
-
+td {
+  vertical-align: middle;
+}
     input[type="number"] {
       width: 60px;
       padding: 5px;
     }
 
-    /* .totals {
-      margin-bottom: 20px;
-      font-weight: bold;
-      text-align: center;
-    } */
     .totals {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: orange;
-  color: white;
-  padding: 12px 18px;
-  font-weight: bold;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  line-height: 1.5;
-}
-
+      position: fixed;
+      top: 180px;
+      left: 0;
+      width: 30%;
+      background: #fe6a13;
+      z-index: 999;
+      text-align: center;
+      padding: 10px;
+      color:white;
+      font-weight: bold;
+    }
 
     label {
       display: block;
@@ -144,7 +55,7 @@
     input[type="text"],
     input[type="tel"] {
       width: 100%;
-      padding: 8px;
+     /* padding: 8px;*/
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -165,84 +76,37 @@
     button:hover {
       background-color: #1ebc5c;
     }
-h2{
-  width: 100%;
-  background: #fe6a13;
-  margin-bottom: 0px;
-  color: #f4f4f4;
-}
+
+    /* Responsive styles */
     @media (max-width: 600px) {
       th, td {
-        font-size: 14px;
+padding:0px;
+        font-size: 12px; /* Smaller font for mobile */
       }
 
       input[type="number"] {
         width: 30px;
       }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAVIGATION BAR -->
-  <div class="navbar" id="navbar">
-    <div class="logo">
-      <a href="https://www.koushikcrackers.in/">
-        <img src="koushik-crackers.jpeg" alt="Logo">
-      </a>
-    </div>
-    <div class="menu-icon" onclick="toggleNavbar()">&#9776;</div>
-    <div class="navbar-links" id="navbarLinks">
-      <a href="https://www.koushikcrackers.in/">Home</a>
-      <a href="https://www.koushikcrackers.in/about/t">About</a>
-      <a href="https://www.koushikcrackers.in/products/">Products</a>
-      <a href="https://www.koushikcrackers.in/blog/">Blog</a>
-      <a href="https://www.koushikcrackers.in/contact/">Contact</a>
-    </div>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <h1>Place your order</h1>
-  <div class="totals">
-    Total Boxes: <span id="totalBoxes">0</span> &nbsp;&nbsp; | &nbsp;&nbsp;
-    Total Cost: ₹<span id="totalCost">0</span>
-  </div>
-
-  <form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
-    <div id="productTablesContainer">
-      <!-- table datas render area -->
-    </div>
-  
-    <label>Your Name:
-      <input type="text" id="name" required>
-    </label>
-  
-    <label>Your Phone:
-      <input type="tel" id="phone" required>
-    </label>
-  
-    <label>Email:
-      <input type="email" id="email" required>
-    </label>
-  
-    <label>Your Location/Address:
-      <input type="text" id="location" required>
-    </label>
-  
-    <label>Your Message:
-      <input type="text" id="message">
-    </label>
-  
-    <button type="submit">Send to WhatsApp</button>
-  </form>
-
-  <script>
-    function toggleNavbar() {
-      document.getElementById("navbar").classList.toggle("active");
+ .totals {
+      position: fixed;
+      top: -120px;
+      left: 0;
+      width: 50%;
+      background: #fe6a13;
+      z-index: 999;
+      text-align: center;
+      padding: 10px;
+      color:white;
+      font-weight: bold;
     }
 
-  </script>
-<script>
+    }
+  </style></p>
+<div class="totals">Total Boxes: <span id="totalBoxes">0</span>    |    Total Cost: ₹<span id="totalCost">0</span></div>
+<form id="crackerForm">
+<div id="productTablesContainer" class="procontainer"><!-- table datas render area  --></div>
+<label>Your Name: <input id="name" required="" type="text" /> </label> <label>Your Phone: <input id="phone" required="" type="tel" /> </label> <label>Your Location/Address: <input id="location" required="" type="text" /> </label> <button type="submit">Send to WhatsApp</button></form>
+<p><script>
   const products = [
     { category: "Single Sound Cracker", items: [
       { name: "4 Lakshmi", rate: 19.40 },
@@ -251,12 +115,14 @@ h2{
       { name: "Deluxe Lakshmi", rate: 37.27 },
       { name: "Elephant", rate: 67.76 },
     ]},
+    
     { category: "Ground Chackkar", items: [
       { name: "Ground Chakkar Big (10 Pcs)", rate: 39.42 },
       { name: "Ground Chakkar Ashoka", rate: 58.51 },
       { name: "Ground Chakkar Special", rate: 67.95 },
       { name: "Ground Chakkar Deluxe", rate: 136.60 },
     ]},
+
     { category: "FlowerPots", items: [
       { name: "Flowerpots Small", rate: 43.47 },
       { name: "Flowerpots Big", rate: 68.99 },
@@ -266,40 +132,49 @@ h2{
       { name: "Colourkoti Red (5 Pcs)", rate: 192.02 },
       { name: "Colourkoti (10 Pcs)", rate: 276.20 },
     ]},
+
       { category: "Color Pencil", items: [
       { name: "7 Colour Pencil", rate: 57.01 },
       { name: "10 Colour Pencil", rate: 58.51 },
     ]},
+
     { category: "Twinkling Star", items: [
       { name: "1½ Twinkling Star", rate: 33.88 },
       { name: "4 Twinkling Star", rate: 78.23 },
     ]},
+
     { category: "C Crackers", items: [
       { name: "28 C", rate: 13.60 },
       { name: "56 C", rate: 27.20 },
     ]},
+
     { category: "Bomb", items: [
       { name: "Bullet Bomb", rate: 36.96 },
       { name: "Hydro Bomb", rate: 63.45 },
       { name: "Atom Bomb", rate: 48.66 },
     ]},
+
     { category: "G Grackers", items: [
       { name: "28 G", rate: 22.29 },
       { name: "56 G", rate: 46.58 },
     ]},
+
     { category: "D Grackers", items: [
       { name: "50 D", rate: 22.29 },
     ]},
+
     { category: "Rocket", items: [
       { name: "Nasa Rocket", rate: 33.00 },
       { name: "Rocket Bomb", rate: 64.35 },
       { name: "Lunic Rocket", rate: 145.20 },
       { name: "Colour Rocket", rate: 115.45 },
     ]},
+
     { category: "Bujili", items: [
       { name: "Red Bijili", rate: 28.58 },
       { name: "Stripped Bijili", rate: 28.58 },
     ]},
+
     { category: "Styling Series", items: [
       { name: "Bingo", rate: 212.24 },
       { name: "Kulif", rate: 84.32 },
@@ -308,12 +183,14 @@ h2{
       { name: "White House", rate: 220.40 },
       { name: "Holly Nite", rate: 228.86 },
     ]},
+
     { category: "Magi Wonder Items", items: [
       { name: "Pambaram", rate: 1367.62 },
       { name: "Magic Show", rate: 322.70 },
       { name: "Lollipop", rate: 228.86 },
       { name: "Colour Smoke", rate: 314.45 },
     ]},
+
     { category: "Wonder Items", items: [
       { name: "Spider", rate: 307.12 },
       { name: "Black Forest", rate: 225.69 },
@@ -324,6 +201,7 @@ h2{
       { name: "Mini Peacock", rate: 228.86 },
       { name: "Skoda", rate: 124.28 },
     ]},
+
     { category: "Special", items: [
       { name: "Color Rain", rate: 106.40 },
       { name: "Golden Rice", rate: 106.40 },
@@ -347,31 +225,37 @@ h2{
       { name: "5 Box Shower", rate: 142.5 },
       { name: "Drone", rate: 153.45 },
     ]},
+
     { category: "Paper Bomb", items: [
       { name: "¼Kg Paper", rate: 71.50 },
       { name: "½Kg Paper", rate: 124.20 },
       { name: "1Kg Paper", rate: 307.20 },
     ]},
+
     { category: "Aerial Fancy 3Pcs", items: [
       { name: "Numo Sumo", rate: 358.56 },
       { name: "Jodi No1", rate: 358.56 },
       { name: "Masala Merchi", rate: 358.56 },
     ]},
+
     { category: "Aerial Fancy 2INC", items: [
       { name: "Knight Riders", rate: 178.56 },
       { name: "Firefox", rate: 178.56 },
       { name: "Mix India", rate: 178.56 },
     ]},
+
     { category: "Aerial Fancy 2 Inch", items: [
       { name: "Milky bar", rate: 178.26 },
       { name: "Kur Kure", rate: 178.26 },
       { name: "Chakre Gold", rate: 178.26 },
+      
     ]},
 
 { category: "Aerial Fancy 2½ Inch", items: [
       { name: "Egg Change", rate: 206.70 },
       { name: "Password", rate: 206.70 },
       { name: "Digital Sound", rate: 206.70 },
+      
     ]},
 
 
@@ -379,19 +263,22 @@ h2{
       { name: "Whatsapp", rate: 425.07 },
       { name: "Holli Colours", rate: 425.07 },
       { name: "Mayajall", rate: 425.07 },
+      
     ]},
 
 
 { category: "Jelly Fancy 3 Inch", items: [
       { name: "Mazta", rate: 271.30 },
       { name: "Redtails", rate: 271.30 },
+      
     ]},
 
 
 { category: "Jelly Fancy 3 Inch", items: [
       { name: "Jodi No1", rate: 271.30 },
       { name: "Bollywood", rate: 271.30 },
-      { name: "Twitter", rate: 271.30 },    
+      { name: "Twitter", rate: 271.30 },
+           
     ]},
 
 { category: "Silver Fancy 3½ Inch", items: [
@@ -400,18 +287,21 @@ h2{
       { name: "Golden Attack", rate: 305.04 },
       { name: "Mercury", rate: 305.04 },
       { name: "Kashmer Chilly", rate: 305.04 },
-      { name: "Silver Line", rate: 305.04 }, 
+      { name: "Silver Line", rate: 305.04 },
+       
     ]},
 
 { category: "Golden Fancy 3½ Inch Special", items: [
       { name: "Nayagara Falls", rate: 353.25 },
       { name: "Digital Star", rate: 353.25 },
       { name: "XXX Seven", rate: 353.25 },  
-    ]},
+          ]},
+
 
 { category: "Aerial Fancy 4 Inch ", items: [
       { name: "Samsung", rate: 653.01 },
       { name: "Nikon", rate: 653.01 },
+      
      ]},
 
 
@@ -426,7 +316,8 @@ h2{
 { category: "Double Ball", items: [
       { name: "Action Jakion(Red & Blue)", rate: 560.70 },
       { name: "Once More(Yellow & Green)", rate: 560.70 },
-      { name: "Action Reply(Yellow & White)", rate: 560.70 }, 
+      { name: "Action Reply(Yellow & White)", rate: 560.70 },
+      
     ]},
 
 
@@ -435,21 +326,27 @@ h2{
       { name: "12 Shot Crackling", rate: 235.20 },
       { name: "30 Shot Multi Colour", rate: 515.26 },
       { name: "30 Shot Crackling", rate: 500.41 },
+      
     ]},
 
 { category: "Rangoli Series", items: [
       { name: "60 Shot Multi Colour & Crackling", rate: 897.47 },
       { name: "120 Shot Multi Colour", rate: 1800.00 },
-      { name: "240 Shot Multi Colour", rate: 3431.00 }, 
+      { name: "240 Shot Multi Colour", rate: 3431.00 },
+      
+      
     ]},
 
 { category: "Action Series", items: [
       { name: "25 Shots Red & Green & Crackling", rate: 395.70 },
+      
+      
     ]},
 
 { category: "Mega Series", items: [
       { name: "30 Shots Univercel (2½ Comet)", rate: 4232.62 },
-      { name: "Titanic 60", rate: 1155.02 },    
+      { name: "Titanic 60", rate: 1155.02 },
+      
     ]},
 
 { category: "Sparklers", items: [
@@ -462,7 +359,10 @@ h2{
       { name: "10cm Green Sparklers", rate: 25.25 },
       { name: "10cm Red Sparklers", rate: 28.42 },
       { name: "12cm Electric Sparklers", rate: 31.58 },
+
+
     ]},
+
 
 { category: "Sparklers", items: [
       { name: "12cm Colour Sparklers", rate: 34.56 },
@@ -479,6 +379,8 @@ h2{
       { name: "50cm Electric Sparklers", rate: 210.56 },
       { name: "50cm colour Sparklers", rate: 240.64 },
       { name: "50cm Multimix Sparklers", rate: 270.64 },
+
+
     ]},
 
 { category: "Gift Box", items: [
@@ -510,7 +412,7 @@ h2{
     products.forEach(group => {
       const table = document.createElement("table");
 
-      const title = document.createElement("h2");
+      const title = document.createElement("h3");
       title.textContent = group.category;
       container.appendChild(title);
 
@@ -520,7 +422,7 @@ h2{
            
             <th>Product Name</th>
             <th>Rate (₹)</th>
-            <th>Packet</th>
+            <th>Box</th>
             <th>Cost (₹)</th>
           </tr>
         </thead>
@@ -531,7 +433,7 @@ h2{
           productNames.push(item.name);
           return `
             <tr>
-           
+             
               <td>${item.name}</td>
               <td>${item.rate.toFixed(2)}</td>
               <td><input type="number" min="0" value="0" onchange="updateRate(${index})"></td>
@@ -572,17 +474,15 @@ h2{
   function sendToWhatsApp() {
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
     const location = document.getElementById("location").value.trim();
-    const message = document.getElementById("message").value.trim();
     const inputs = document.querySelectorAll('input[type="number"]');
 
-    if (!name || !phone || !location || !email) {
-      alert("Please fill out all required fields.");
+    if (!name || !phone || !location) {
+      alert("Please fill out all the fields.");
       return;
     }
 
-    let orderSummary = "*Cracker Box Order Summary:*\n";
+    let message = `*🎆 Cracker Box Order Summary 🎇*%0A%0A`;
     let totalBoxes = 0;
     let totalCost = 0;
 
@@ -590,28 +490,21 @@ h2{
       const qty = parseInt(input.value) || 0;
       if (qty > 0) {
         const cost = qty * prices[index];
+        message += `${index + 1}. ${productNames[index]} - ${qty} box(es) - ₹${cost.toFixed(2)}%0A`;
         totalBoxes += qty;
         totalCost += cost;
-        orderSummary += `• ${productNames[index]}: ${qty} packets - ₹${cost.toFixed(2)}\n`;
       }
     });
 
-    orderSummary += `\n*Total Boxes:* ${totalBoxes}\n*Total Cost:* ₹${totalCost.toFixed(2)}\n\n`;
-    orderSummary += `*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Address:* ${location}\n`;
-    if (message) {
-      orderSummary += `*Message:* ${message}\n`;
-    }
+    message += `%0A*Total Boxes:* ${totalBoxes}%0A*Total Cost:* ₹${totalCost.toFixed(2)}%0A`;
+    message += `%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *Location:* ${location}%0A`;
+    message += `%0A📝 Please confirm my order.`;
 
-    const encodedMessage = encodeURIComponent(orderSummary);
-    const whatsappNumber = "919123456789"; // Replace with your actual number (with country code, no +)
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
+    const phoneNumber = "916369471949"; // Change this to your WhatsApp number
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappURL, "_blank");
   }
 
-  // Initial render
+  // Initialize tables
   renderTables();
 </script>
-
-</body>
-</html>

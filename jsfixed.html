@@ -451,3 +451,235 @@ C Crackers
 
 </body>
 </html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fireworks Catalog</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #fefefe;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #d9534f;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    .summary {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 20px 0;
+    }
+    .form-section {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+    }
+    .form-section input, .form-section textarea {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    button {
+      background-color: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #1ebe57;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎇 Fireworks Price List & Order Form 🎆</h1>
+
+  <div id="productTablesContainer"></div>
+
+  <div class="summary">
+    📦 Total Boxes: <span id="totalBoxes">0</span><br>
+    💰 Total Cost: ₹<span id="totalCost">0.00</span>
+  </div>
+
+  <form id="crackerForm" class="form-section">
+    <h2>📝 Your Details</h2>
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="tel" id="phone" placeholder="Phone Number" required />
+    <textarea id="location" placeholder="Delivery Address" rows="3" required></textarea>
+    <button type="submit">Send Order via WhatsApp</button>
+  </form>
+
+  <script>
+    const products = [
+      {
+        category: "1 Sound Crackers",
+        items: [
+          { name: "2 Sound", rate: 20 },
+          { name: "4 Sound", rate: 45 },
+          { name: "7 Sound", rate: 70 },
+          { name: "10 Sound", rate: 100 },
+        ]
+      },
+      {
+        category: "2 Atom Bombs",
+        items: [
+          { name: "Small Atom", rate: 35 },
+          { name: "Big Atom", rate: 70 },
+          { name: "Deluxe Atom", rate: 90 },
+        ]
+      },
+      {
+        category: "3 Flower Pots",
+        items: [
+          { name: "Small", rate: 25 },
+          { name: "Big", rate: 45 },
+          { name: "Deluxe", rate: 70 },
+        ]
+      },
+      {
+        category: "4 Ground Chakkars",
+        items: [
+          { name: "Normal Chakkar", rate: 35 },
+          { name: "Color Chakkar", rate: 55 },
+        ]
+      },
+      {
+        category: "5 Rockets",
+        items: [
+          { name: "Single Shot", rate: 15 },
+          { name: "5 Shot", rate: 50 },
+          { name: "Fancy Rocket", rate: 75 },
+        ]
+      },
+      {
+        category: "6 Fancy Items",
+        items: [
+          { name: "Lava", rate: 120 },
+          { name: "Color Thunder", rate: 150 },
+          { name: "Helicopter", rate: 80 },
+        ]
+      }
+    ];
+
+    const container = document.getElementById("productTablesContainer");
+    const totalBoxesEl = document.getElementById("totalBoxes");
+    const totalCostEl = document.getElementById("totalCost");
+
+    function updateTotals() {
+      let totalBoxes = 0;
+      let totalCost = 0;
+
+      document.querySelectorAll(".qty-input").forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const rate = parseFloat(input.dataset.rate);
+        totalBoxes += qty;
+        totalCost += qty * rate;
+      });
+
+      totalBoxesEl.textContent = totalBoxes;
+      totalCostEl.textContent = totalCost.toFixed(2);
+    }
+
+    // Create tables for each category
+    products.forEach(category => {
+      const table = document.createElement("table");
+
+      const headerRow = document.createElement("tr");
+      headerRow.innerHTML = `<th colspan="3"><h2>${category.category}</h2></th>`;
+      table.appendChild(headerRow);
+
+      const titleRow = document.createElement("tr");
+      titleRow.innerHTML = "<th>Product</th><th>Rate (₹)</th><th>Qty</th>";
+      table.appendChild(titleRow);
+
+      category.items.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.rate}</td>
+          <td><input class="qty-input" type="number" min="0" data-rate="${item.rate}" /></td>
+        `;
+        table.appendChild(row);
+      });
+
+      container.appendChild(table);
+    });
+
+    container.addEventListener("input", updateTotals);
+
+    // Form submission to WhatsApp
+    document.getElementById("crackerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const location = document.getElementById("location").value.trim();
+
+      let message = `🔥 *Fireworks Order* 🔥\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${location}\n\n🧨 *Order Summary:*\n`;
+
+      document.querySelectorAll("table").forEach(table => {
+        const category = table.querySelector("h2")?.textContent;
+        let hasQty = false;
+        let rows = "";
+
+        table.querySelectorAll("tr").forEach((row, i) => {
+          if (i < 2) return; // Skip header
+          const cols = row.querySelectorAll("td");
+          const qtyInput = cols[2].querySelector("input");
+          const qty = parseInt(qtyInput.value) || 0;
+          if (qty > 0) {
+            hasQty = true;
+            const product = cols[0].textContent;
+            const rate = parseFloat(qtyInput.dataset.rate);
+            rows += `- ${product} @ ₹${rate} x ${qty} = ₹${(rate * qty).toFixed(2)}\n`;
+          }
+        });
+
+        if (hasQty) {
+          message += `\n*${category}*\n${rows}`;
+        }
+      });
+
+      message += `\n📦 *Total Boxes:* ${totalBoxesEl.textContent}\n💰 *Total Cost:* ₹${totalCostEl.textContent}`;
+
+      const encoded = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/?text=${encoded}`;
+      window.open(whatsappURL, '_blank');
+    });
+  </script>
+</body>
+</html> -->
+<a href="https://www.koushikcrackers.in/">Home</a>
+<a href="https://www.koushikcrackers.in/about/t">About</a>
+<a href="https://www.koushikcrackers.in/products/">Products</a>
+<a href="https://www.koushikcrackers.in/blog/">Blog</a>
+<a href="https://www.koushikcrackers.in/contact/">Contact</a>
