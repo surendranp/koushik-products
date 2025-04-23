@@ -229,8 +229,8 @@ padding: 20px;
   <!-- MAIN CONTENT -->
   
   <div class="totals">
-    <i class="fa-solid fa-box-open"></i>: <span id="totalBoxes">0</span> &nbsp;&nbsp;  &nbsp;&nbsp;
-    <i class="fa-solid fa-wallet"></i>:₹ <span id="totalCost">0</span>
+   Item <i class="fa-solid fa-box-open"></i>: <span id="totalBoxes">0</span> &nbsp;&nbsp;  &nbsp;&nbsp;
+   Total cost <i class="fa-solid fa-wallet"></i>:₹ <span id="totalCost">0</span>
   </div>
   <h1>Place your order</h1>
   <form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
@@ -631,7 +631,7 @@ padding: 20px;
     }
 
     const encodedMessage = encodeURIComponent(orderSummary);
-    const whatsappNumber = "919487539112"; // Replace with your actual number (with country code, no +)
+    const whatsappNumber = "916369471949"; // Replace with your actual number (with country code, no +)
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
     window.open(whatsappURL, "_blank");
