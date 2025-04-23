@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cracker Box Order Form</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
  
     * {
@@ -123,9 +125,9 @@
     } */
     .totals {
   position: fixed;
-  bottom: 50px;
+  bottom: 500px;
   left: 20px;
-  background-color: orange;
+  background-color: rgb(255, 157, 0);
   color: white;
   padding: 12px 18px;
   font-weight: bold;
@@ -206,8 +208,8 @@ h2{
   <!-- MAIN CONTENT -->
   <h1>Place your order</h1>
   <div class="totals">
-    Total Boxes: <span id="totalBoxes">0</span> &nbsp;&nbsp; | &nbsp;&nbsp;
-    Total Cost: ₹<span id="totalCost">0</span>
+    <i class="fa-solid fa-box-open"></i>:₹ <span id="totalBoxes">0</span> &nbsp;&nbsp; | &nbsp;&nbsp;</br>
+    <i class="fa-solid fa-indian-rupee-sign"></i>: ₹<span id="totalCost">0</span>
   </div>
 
   <form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
@@ -605,7 +607,7 @@ h2{
     }
 
     const encodedMessage = encodeURIComponent(orderSummary);
-    const whatsappNumber = "916369471949"; // Replace with your actual number (with country code, no +)
+    const whatsappNumber = "918248832733 "; // Replace with your actual number (with country code, no +)
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
     window.open(whatsappURL, "_blank");
