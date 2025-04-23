@@ -621,6 +621,13 @@ h2{
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
     window.open(whatsappURL, "_blank");
+    // 🔄 Clear form and totals
+  document.getElementById("crackerForm").reset();
+  document.getElementById("totalBoxes").textContent = "0";
+  document.getElementById("totalCost").textContent = "0";
+  for (let i = 0; i < prices.length; i++) {
+    document.getElementById(`cost${i}`).textContent = "0";
+  }
   }
 
   // Initial render
