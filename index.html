@@ -101,7 +101,7 @@
       width: 100%;
       border-collapse: collapse;
       /* margin-bottom: 20px; */
-      /* background: #000000; */
+      background: #fbf0bb;
       
     }
 
@@ -109,13 +109,14 @@
       padding: 5px;
       width: 10%;
       text-align: center;
-      border: 1px solid #ccc;
+      border: 1px solid #000000;
       word-wrap: break-word;
-      /* color: white; */
+      font-weight: bold;
     }
 
     th {
-      background-color: #f4f4f4;
+      background-color: #0a7070;
+      color: white;
     }
 
     input[type="number"] {
@@ -124,16 +125,17 @@
     }
 
     .totals {
-  position: fixed;
-  bottom: 300px;
-  left: 20px;
+  position: sticky;
+  top: 0px; /* adjust if your navbar height differs */
+  width: 100%;
   background-color: rgb(255, 157, 0);
   color: white;
-  padding: 12px 18px;
+  padding: 12px 0;
   font-weight: bold;
-  border-radius: 6px;
+  border-radius: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
+  z-index: 999;
+  text-align: center;
   line-height: 1.5;
 }
 
@@ -173,24 +175,32 @@
     }
 h2{
   width: 100%;
-  background: #fe6a13;
+  background: #ffcf14;
   text-align: center;
   margin-bottom: 0px;
-  color: #f4f4f4;
+padding: 20px;
 }
     @media (max-width: 600px) {
       th, td {
         font-size: 12px;
-        color: white;
-        width: 20%;
+        /* color: white; */
+        width: 40%;
       }
       table {
       width: 100%;
       border-collapse: collapse;
-      /* margin-bottom: 20px; */
-      /* background: #000000; */
       
     }
+    h2{
+  width: 100%;
+  background: #ffcf14;
+  text-align: center;
+  margin-bottom: 0px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+
+}
       /* input[type="number"] {
         width: 30px;
       } */
@@ -217,12 +227,12 @@ h2{
   </div>
 
   <!-- MAIN CONTENT -->
-  <h1>Place your order</h1>
+  
   <div class="totals">
-    <i class="fa-solid fa-box-open"></i>:₹ <span id="totalBoxes">0</span> &nbsp;&nbsp;  &nbsp;&nbsp;</br>
+    <i class="fa-solid fa-box-open"></i>: <span id="totalBoxes">0</span> &nbsp;&nbsp;  &nbsp;&nbsp;
     <i class="fa-solid fa-wallet"></i>:₹ <span id="totalCost">0</span>
   </div>
-
+  <h1>Place your order</h1>
   <form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
     <div id="productTablesContainer">
       <!-- table datas render area -->
@@ -262,28 +272,258 @@ h2{
 <script>
   const products = [
     { category: "Single Sound Cracker", items: [
-      { name: "4 Lakshmi", rate: 19.40 },
-      { name: "3½ Lakshmi", rate: 14.142 },
-      { name: "2¾ Kuruvi", rate: 10.99 },
-      { name: "Deluxe Lakshmi", rate: 37.27 },
-      { name: "Elephant", rate: 67.76 },
+      { name: "4 Lakshmi", rate: 19.40 , Content:"1 Pkt"},
+      { name: "3½ Lakshmi", rate: 14.142,Content:"1 Pkt" },
+      { name: "2¾ Kuruvi", rate: 10.99,Content:"1 Pkt" },
+      { name: "Deluxe Lakshmi", rate: 37.27,Content:"1 Pkt" },
+      { name: "Elephant", rate: 67.76,Content:"1 Pkt" },
     ]},
-    { category: "Ground Chackkar", items: [
-      { name: "Ground Chakkar Big (10 Pcs)", rate: 39.42 },
-      { name: "Ground Chakkar Ashoka", rate: 58.51 },
-      { name: "Ground Chakkar Special", rate: 67.95 },
-      { name: "Ground Chakkar Deluxe", rate: 136.60 },
+    { category: "Ground Chakkar", items: [
+      { name: "Ground Chakkar Big (10 Pcs)", rate: 39.42,Content:"1 Box" },
+      { name: "Ground Chakkar Ashoka", rate: 58.51,Content:"1 Box" },
+      { name: "Ground Chakkar Special", rate: 67.95,Content:"1 Box" },
+      { name: "Ground Chakkar Deluxe", rate: 136.60,Content:"1 Box" },
     ]},
     { category: "FlowerPots", items: [
-      { name: "Flowerpots Small", rate: 43.47 },
-      { name: "Flowerpots Big", rate: 68.99 },
-      { name: "Flowerpots Special", rate: 92.13 },
-      { name: "Flowerpots Deluxe", rate: 270.0 },
-      { name: "Flowerpots Ashoka", rate: 98.60 },
-      { name: "Colourkoti Red (5 Pcs)", rate: 192.02 },
-      { name: "Colourkoti (10 Pcs)", rate: 276.20 },
+      { name: "Flowerpots Small", rate: 43.47,Content:"1 Box" },
+      { name: "Flowerpots Big", rate: 68.99,Content:"1 Box" },
+      { name: "Flowerpots Special", rate: 92.13,Content:"1 Box" },
+      { name: "Flowerpots Deluxe", rate: 270.0,Content:"1 Box" },
+      { name: "Flowerpots Ashoka", rate: 98.60,Content:"1 Box" },
+      { name: "Colourkoti Red (5 Pcs)", rate: 192.02,Content:"1 Box" },
+      { name: "Colourkoti (10 Pcs)", rate: 276.20,Content:"1 Box" },
+    ]},
+      { category: "Color Pencil", items: [
+      { name: "7 Colour Pencil", rate: 57.01,Content:"1 Box" },
+      { name: "10 Colour Pencil", rate: 58.51,Content:"1 Box" },
+    ]},
+    { category: "Twinkling Star", items: [
+      { name: "1½ Twinkling Star", rate: 33.88,Content:"1 Box" },
+      { name: "4 Twinkling Star", rate: 78.23,Content:"1 Box" },
+    ]},
+    { category: "C Crackers", items: [
+      { name: "28 C", rate: 13.60,Content:"1 Box" },
+      { name: "56 C", rate: 27.20,Content:"1 Box" },
+    ]},
+    { category: "Bomb", items: [
+      { name: "Bullet Bomb", rate: 36.96,Content:"1 Box" },
+      { name: "Hydro Bomb", rate: 63.45,Content:"1 Box" },
+      { name: "Atom Bomb", rate: 48.66,Content:"1 Box" },
+    ]},
+    { category: "G Grackers", items: [
+      { name: "28 G", rate: 22.29,Content:"1 Box" },
+      { name: "56 G", rate: 46.58,Content:"1 Box" },
+    ]},
+    { category: "D Grackers", items: [
+      { name: "50 D", rate: 22.29,Content:"1 Box" },
+    ]},
+    { category: "Rocket", items: [
+      { name: "Nasa Rocket", rate: 33.00,Content:"1 Box" },
+      { name: "Rocket Bomb", rate: 64.35,Content:"1 Box" },
+      { name: "Lunic Rocket", rate: 145.20,Content:"1 Box" },
+      { name: "Colour Rocket", rate: 115.45,Content:"1 Box" },
+    ]},
+    { category: "Bujili", items: [
+      { name: "Red Bijili", rate: 28.58,Content:"1 Box" },
+      { name: "Stripped Bijili", rate: 28.58,Content:"1 Box" },
+    ]},
+    { category: "Styling Series", items: [
+      { name: "Bingo", rate: 212.24,Content:"1 Box" },
+      { name: "Kulif", rate: 84.32,Content:"1 Box" },
+      { name: "Butterfly", rate: 90.32,Content:"1 Box" },
+      { name: "Siren", rate: 180.00,Content:"1 Box" },
+      { name: "White House", rate: 220.40,Content:"1 Box" },
+      { name: "Holly Nite", rate: 228.86,Content:"1 Box" },
+    ]},
+    { category: "Magi Wonder Items", items: [
+      { name: "Pambaram", rate: 1367.62,Content:"1 Box" },
+      { name: "Magic Show", rate: 322.70,Content:"1 Box" },
+      { name: "Lollipop", rate: 228.86,Content:"1 Box" },
+      { name: "Colour Smoke", rate: 314.45,Content:"1 Box" },
+    ]},
+    { category: "Wonder Items", items: [
+      { name: "Spider", rate: 307.12,Content:"1 Box" },
+      { name: "Black Forest", rate: 225.69,Content:"1 Box" },
+      { name: "Drum Stick", rate: 225.69,Content:"1 Box" },
+      { name: "Helicopter", rate: 198.52,Content:"1 Box" },
+      { name: "Peacock Poul;", rate: 206.43,Content:"1 Box" },
+      { name: "Jelly Belly", rate: 66.07,Content:"1 Box" },
+      { name: "Mini Peacock", rate: 228.86,Content:"1 Box" },
+      { name: "Skoda", rate: 124.28,Content:"1 Box" },
+    ]},
+    { category: "Special", items: [
+      { name: "Color Rain", rate: 106.40,Content:"1 Box" },
+      { name: "Golden Rice", rate: 106.40,Content:"1 Box" },
+      { name: "Touch & Touch", rate: 106.40,Content:"1 Box" },
+      { name: "Tin Beer", rate: 153.97,Content:"1 Box" },
+      { name: "Minion", rate: 190.08,Content:"1 Box" },
+      { name: "Olaivedi", rate: 151.90,Content:"1 Box" },
+      { name: "Lollipop-II", rate: 285.13,Content:"1 Box" },
+      { name: "Jurassic Park", rate: 147.7,Content:"1 Box" },
+      { name: "Kurukure", rate: 170.2,Content:"1 Box" },
+      { name: "Chotta Fancy", rate: 75,Content:"1 Box" },
+      { name: "Skyshot", rate: 149.2,Content:"1 Box" },
+      { name: "Photoflash", rate: 188.2,Content:"1 Box" },
+      { name: "7 shot", rate: 220,Content:"1 Box" },
+      { name: "5 Pipe", rate: 749.2,Content:"1 Box" },
+      { name: "Popcorn", rate: 75,Content:"1 Box" },
+      { name: "Money Bank", rate: 170.2,Content:"1 Box" },
+      { name: "Magicpencil", rate: 239.7,Content:"1 Box" },
+      { name: "Political Crackers", rate: 268.2,Content:"1 Box" },
+      { name: "Toy Toy", rate: 120,Content:"1 Box" },
+      { name: "5 Box Shower", rate: 142.5,Content:"1 Box" },
+      { name: "Drone", rate: 153.45,Content:"1 Box" },
+    ]},
+    { category: "Paper Bomb", items: [
+      { name: "¼Kg Paper", rate: 71.50,Content:"1 Box" },
+      { name: "½Kg Paper", rate: 124.20,Content:"1 Box" },
+      { name: "1Kg Paper", rate: 307.20,Content:"1 Box" },
+    ]},
+    { category: "Aerial Fancy 3Pcs", items: [
+      { name: "Numo Sumo", rate: 358.56,Content:"1 Box" },
+      { name: "Jodi No1", rate: 358.56,Content:"1 Box" },
+      { name: "Masala Merchi", rate: 358.56,Content:"1 Box" },
+    ]},
+    { category: "Aerial Fancy 2 Inch", items: [
+      { name: "Knight Riders", rate: 178.56,Content:"1 Box" },
+      { name: "Firefox", rate: 178.56,Content:"1 Box" },
+      { name: "Mix India", rate: 178.56,Content:"1 Box" },
+    ]},
+    { category: "Aerial Fancy 2 Inch", items: [
+      { name: "Milky bar", rate: 178.26,Content:"1 Box" },
+      { name: "Kur Kure", rate: 178.26,Content:"1 Box" },
+      { name: "Chakre Gold", rate: 178.26,Content:"1 Box" },
     ]},
 
+{ category: "Aerial Fancy 2½ Inch", items: [
+      { name: "Egg Change", rate: 206.70,Content:"1 Box" },
+      { name: "Password", rate: 206.70,Content:"1 Box" },
+      { name: "Digital Sound", rate: 206.70,Content:"1 Box" },
+    ]},
+
+
+{ category: "Aerial Fancy 2¾ Inch (3Pcs)", items: [
+      { name: "Whatsapp", rate: 425.07,Content:"1 Box" },
+      { name: "Holli Colours", rate: 425.07,Content:"1 Box" },
+      { name: "Mayajall", rate: 425.07,Content:"1 Box" },
+    ]},
+
+
+{ category: "Jelly Fancy 3 Inch", items: [
+      { name: "Mazta", rate: 271.30,Content:"1 Box" },
+      { name: "Redtails", rate: 271.30,Content:"1 Box" },
+    ]},
+
+
+{ category: "Jelly Fancy 3 Inch", items: [
+      { name: "Jodi No1", rate: 271.30,Content:"1 Box" },
+      { name: "Bollywood", rate: 271.30,Content:"1 Box" },
+      { name: "Twitter", rate: 271.30,Content:"1 Box" },    
+    ]},
+
+{ category: "Silver Fancy 3½ Inch", items: [
+      { name: "PinkPearls", rate: 305.04,Content:"1 Box" },
+      { name: "Green Shower", rate: 305.04,Content:"1 Box" },
+      { name: "Golden Attack", rate: 305.04,Content:"1 Box" },
+      { name: "Mercury", rate: 305.04,Content:"1 Box" },
+      { name: "Kashmer Chilly", rate: 305.04,Content:"1 Box" },
+      { name: "Silver Line", rate: 305.04,Content:"1 Box" }, 
+    ]},
+
+{ category: "Golden Fancy 3½ Inch Special", items: [
+      { name: "Nayagara Falls", rate: 353.25,Content:"1 Box" },
+      { name: "Digital Star", rate: 353.25,Content:"1 Box" },
+      { name: "XXX Seven", rate: 353.25,Content:"1 Box" },  
+    ]},
+
+{ category: "Aerial Fancy 4 Inch ", items: [
+      { name: "Samsung", rate: 653.01,Content:"1 Box" },
+      { name: "Nikon", rate: 653.01,Content:"1 Box" },
+     ]},
+
+
+{ category: "Aerial Fancy 4 Inch", items: [
+      { name: "Vivo", rate: 653.01,Content:"1 Box" },
+      { name: "Sony", rate: 653.01,Content:"1 Box" },
+      { name: "Amazon", rate: 653.01,Content:"1 Box" },
+      { name: "Walmart", rate: 653.01,Content:"1 Box" },
+    ]},
+
+
+{ category: "Double Ball", items: [
+      { name: "Action Jakion(Red & Blue)", rate: 560.70,Content:"1 Box" },
+      { name: "Once More(Yellow & Green)", rate: 560.70,Content:"1 Box" },
+      { name: "Action Reply(Yellow & White)", rate: 560.70,Content:"1 Box" }, 
+    ]},
+
+
+{ category: "Rangoli Series", items: [
+      { name: "15Shot Crackling & sizzing Multicolor", rate: 322.20,Content:"1 Box" },
+      { name: "12 Shot Crackling", rate: 235.20,Content:"1 Box" },
+      { name: "30 Shot Multi Colour", rate: 515.26,Content:"1 Box" },
+      { name: "30 Shot Crackling", rate: 500.41,Content:"1 Box" },
+    ]},
+
+{ category: "Rangoli Series", items: [
+      { name: "60 Shot Multi Colour & Crackling", rate: 897.47,Content:"1 Box" },
+      { name: "120 Shot Multi Colour", rate: 1800.00,Content:"1 Box" },
+      { name: "240 Shot Multi Colour", rate: 3431.00,Content:"1 Box" }, 
+    ]},
+
+{ category: "Action Series", items: [
+      { name: "25 Shots Red & Green & Crackling", rate: 395.70,Content:"1 Box" },
+    ]},
+
+{ category: "Mega Series", items: [
+      { name: "30 Shots Univercel (2½ Comet)", rate: 4232.62,Content:"1 Box" },
+      { name: "Titanic 60", rate: 1155.02,Content:"1 Box" },    
+    ]},
+
+{ category: "Sparklers", items: [
+      { name: "7cm Electric Sparklers", rate: 11.58,Content:"1 Box" },
+      { name: "7cm Colour Sparklers", rate: 13.65,Content:"1 Box" },
+      { name: "7cm Green Sparklers", rate: 15.86,Content:"1 Box" },      
+      { name: "7cm Red Sparklers", rate: 22.89,Content:"1 Box" },
+      { name: "10cm Electric Sparklers", rate: 20.60,Content:"1 Box" },
+      { name: "10cm Colour Sparklers", rate: 24.08,Content:"1 Box" },
+      { name: "10cm Green Sparklers", rate: 25.25,Content:"1 Box" },
+      { name: "10cm Red Sparklers", rate: 28.42,Content:"1 Box" },
+      { name: "12cm Electric Sparklers", rate: 31.58,Content:"1 Box" },
+    ]},
+
+{ category: "Sparklers", items: [
+      { name: "12cm Colour Sparklers", rate: 34.56,Content:"1 Box" },
+      { name: "12cm Sparklers", rate: 37.60,Content:"1 Box" },
+      { name: "12cm Red Sparklers", rate: 41.36,Content:"1 Box" },      
+      { name: "15cm Electric Sparklers", rate: 52.64,Content:"1 Box" },
+      { name: "15cm Colour Sparklers", rate: 57.90,Content:"1 Box" },
+      { name: "15cm Green Sparklers", rate: 61.06,Content:"1 Box" },
+      { name: "15cm Red Sparklers", rate: 66.17,Content:"1 Box" },
+      { name: "30cm Electric Sparklers", rate: 52.64,Content:"1 Box" },
+      { name: "30cm colour Sparklers", rate: 57.90,Content:"1 Box" },
+      { name: "30cm Green Sparklers", rate: 61.06,Content:"1 Box" },
+      { name: "30cm Red Sparklers", rate: 66.17,Content:"1 Box" },
+      { name: "50cm Electric Sparklers", rate: 210.56,Content:"1 Box" },
+      { name: "50cm colour Sparklers", rate: 240.64,Content:"1 Box" },
+      { name: "50cm Multimix Sparklers", rate: 270.64,Content:"1 Box" },
+    ]},
+
+{ category: "Gift Box", items: [
+      { name: "20 Items Box", rate: 412.50,Content:"1 Box" },
+      { name: "25 Items Box", rate: 517.50,Content:"1 Box" },
+      { name: "30 Items Box", rate: 712.50,Content:"1 Box" },
+      { name: "40 Items Box", rate: 892.5,Content:"1 Box" },  
+      { name: "50 Items Box", rate: 1132.5,Content:"1 Box"}, 
+    ]},
+
+// { category: "Crackers", items: [
+//       { name: "100w", rate: 53.90 },
+//       { name: "200w", rate: 107.14 },
+//       { name: "1k", rate: 404.78 },
+//       { name: "2k", rate: 795.7 },  
+//       { name: "5k", rate: 1904.85 }, 
+//       { name: "10k", rate: 3809.99 }, 
+//     ]}
 
   ];
 
@@ -306,7 +546,8 @@ h2{
           <tr>
            <th>Product Name</th>
             <th>Rate (₹)</th>
-            <th>Quantity</th>
+            <th>Content</th>
+            <th>Qty</th>
             <th>Cost (₹)</th>
           </tr>
         </thead>
@@ -320,6 +561,7 @@ h2{
            
               <td>${item.name}</td>
               <td>${item.rate.toFixed(2)}</td>
+              <td>${item.Content}</td>
               <td><input type="number" min="0" value="0" onchange="updateRate(${index})"></td>
               <td>₹<span id="cost${index}">0</span></td>
             </tr>
