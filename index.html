@@ -89,7 +89,8 @@
     /* Main Content */
     h1 {
       text-align: center;
-      /* margin: 20px 0; */
+      margin: 20px 0;
+      
     }
 
     form {
@@ -103,7 +104,8 @@
     }
 
     th, td {
-      padding: 10px;
+      padding: 5px;
+      width: 10%;
       text-align: center;
       border: 1px solid #ccc;
       word-wrap: break-word;
@@ -118,11 +120,6 @@
       padding: 5px;
     }
 
-    /* .totals {
-      margin-bottom: 20px;
-      font-weight: bold;
-      text-align: center;
-    } */
     .totals {
   position: fixed;
   bottom: 300px;
@@ -137,11 +134,13 @@
   line-height: 1.5;
 }
 
-
     label {
       display: block;
       margin-bottom: 10px;
+      width: 50%;
+      margin: auto;
     }
+
 
     input[type="text"],
     input[type="tel"],
@@ -172,6 +171,7 @@
 h2{
   width: 100%;
   background: #fe6a13;
+  text-align: center;
   margin-bottom: 0px;
   color: #f4f4f4;
 }
@@ -180,9 +180,9 @@ h2{
         font-size: 14px;
       }
 
-      input[type="number"] {
+      /* input[type="number"] {
         width: 30px;
-      }
+      } */
     }
   </style>
 </head>
@@ -216,7 +216,8 @@ h2{
     <div id="productTablesContainer">
       <!-- table datas render area -->
     </div>
-  
+  <h1> Please Provide Your Details Below</h1>
+  <box class="box">
     <label>Your Name:
       <input type="text" id="name" required>
     </label>
@@ -238,6 +239,7 @@ h2{
     </label>
   
     <button type="submit">Send to WhatsApp</button>
+  </box>
   </form>
 
   <script>
@@ -491,7 +493,7 @@ h2{
       { name: "30 Items Box", rate: 712.50 },
       { name: "40 Items Box", rate: 892.5 },  
       { name: "50 Items Box", rate: 1132.5 }, 
-    ]}, 
+    ]},
 
 // { category: "Crackers", items: [
 //       { name: "100w", rate: 53.90 },
@@ -521,10 +523,8 @@ h2{
       table.innerHTML = `
         <thead>
           <tr>
-            <th>Product Name</th>
-            <th>Rate (₹)</th>
-            <th>Boxes</th>
-            <th>Cost (₹)</th>
+           
+
           </tr>
         </thead>
         <tbody>
