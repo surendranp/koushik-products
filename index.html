@@ -284,7 +284,10 @@ color: white;
       <button type="submit">Send to WhatsApp</button>
     </div>
   </form>
-
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("FMrOfdAywYKEG7jjq"); // Replace with your EmailJS public key
+  </script>
   <script>
     function toggleNavbar() {
       document.getElementById("navbar").classList.toggle("active");
@@ -625,45 +628,61 @@ color: white;
     const email = document.getElementById("email").value.trim();
     const location = document.getElementById("location").value.trim();
     const message = document.getElementById("message").value.trim();
+
     const inputs = document.querySelectorAll('input[type="number"]');
-
-    if (!name || !phone || !location || !email) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-
-    let orderSummary = "*Cracker Box Order Summary:*\n";
+    let orderSummary = "";
     let totalBoxes = 0;
     let totalCost = 0;
 
     inputs.forEach((input, index) => {
       const qty = parseInt(input.value) || 0;
       if (qty > 0) {
-        const cost = qty * prices[index];
+        const productName = productNames[index];
+        const productRate = prices[index];
+        const cost = qty * productRate;
         totalBoxes += qty;
         totalCost += cost;
-        orderSummary += `• ${productNames[index]}: ${qty} Boxes - ₹${cost.toFixed(2)}\n`;
+
+        orderSummary += `*${productName}* x ${qty} = ₹${cost.toFixed(2)}\n`;
       }
     });
 
-    orderSummary += `\n*Total Boxes:* ${totalBoxes}\n*Total Cost:* ₹${totalCost.toFixed(2)}\n\n`;
-    orderSummary += `*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Address:* ${location}\n`;
-    if (message) {
-      orderSummary += `*Message:* ${message}\n`;
+    if (!orderSummary) {
+      alert("Please select at least one product.");
+      return;
     }
 
-    const encodedMessage = encodeURIComponent(orderSummary);
-    const whatsappNumber = "916369471949"; // Replace with your actual number (with country code, no +)
+    orderSummary += `\n*Total Boxes:* ${totalBoxes}\n*Total Cost:* ₹${totalCost.toFixed(2)}`;
+
+    const userDetails = `\n\n*Customer Details:*\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nLocation: ${location}\nMessage: ${message}`;
+
+    // 👉 Send to WhatsApp
+    const fullMessage = `New Order:\n\n${orderSummary}${userDetails}`;
+    const encodedMessage = encodeURIComponent(fullMessage);
+    const whatsappNumber = "916369471949"; // Replace with your WhatsApp number (with country code, no +)
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-    window.open(whatsappURL, "_blank");
-    // 🔄 Clear form and totals
-  document.getElementById("crackerForm").reset();
-  document.getElementById("totalBoxes").textContent = "0";
-  document.getElementById("totalCost").textContent = "0";
-  for (let i = 0; i < prices.length; i++) {
-    document.getElementById(`cost${i}`).textContent = "0";
-  }
+    // 👉 Send Email via EmailJS
+    emailjs.send("service_4ajfov9", "service_4ajfov9", {
+      name,
+      phone,
+      email,
+      location,
+      message,
+      order_summary: orderSummary.replace(/\*/g, "") // no stars in email
+    }).then(() => {
+      console.log("Email sent successfully");
+      window.open(whatsappURL, "_blank");
+      document.getElementById("crackerForm").reset();
+      document.getElementById("totalBoxes").textContent = "0";
+      document.getElementById("totalCost").textContent = "0";
+      for (let i = 0; i < prices.length; i++) {
+        document.getElementById(`cost${i}`).textContent = "0";
+      }
+    }).catch((error) => {
+      console.error("Email failed:", error);
+      alert("Email sending failed. Please try again.");
+    });
   }
 
   // Initial render
