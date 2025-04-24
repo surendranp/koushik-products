@@ -180,12 +180,26 @@ h2{
 padding: 20px;
 color: white;
 }
-form box{
-background-color: #000000;
-width: 100%;
-height: auto;
-
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px auto;
+  padding:30px  0px;
+  max-width: 600px;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
+
+.form-container h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
 
     @media (max-width: 600px) {
       th, td {
@@ -240,35 +254,35 @@ color: white;
    Total cost <i class="fa-solid fa-wallet"></i>:₹ <span id="totalCost">0</span>
   </div>
   <h1>Place your order</h1>
-  <form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
+  <form id="crackerForm" onsubmit="event.preventDefault(); sendToWhatsApp(); sendEmail();">
     <div id="productTablesContainer">
       <!-- table datas render area -->
     </div>
-    <box class="box">
-  <h1> Please Provide Your Details Below</h1>
-
-    <label>Your Name:
-      <input type="text" id="name" required>
-    </label>
-  
-    <label>Your Phone:
-      <input type="tel" id="phone" required>
-    </label>
-  
-    <label>Email:
-      <input type="email" id="email" required>
-    </label>
-  
-    <label>Your Location/Address:
-      <input type="text" id="location" required>
-    </label>
-  
-    <label>Your Message:
-      <textarea type="text" name="textarea" id="message"></textarea>
-    </label>
-  
-    <button type="submit">Send to WhatsApp</button>
-  </box>
+    <div class="form-container">
+      <h1>Please Provide Your Details Below</h1>
+    
+      <label>Your Name:
+        <input type="text" id="name" required>
+      </label>
+    
+      <label>Your Phone:
+        <input type="tel" id="phone" required>
+      </label>
+    
+      <label>Email:
+        <input type="email" id="email" required>
+      </label>
+    
+      <label>Your Location/Address:
+        <input type="text" id="location" required>
+      </label>
+    
+      <label>Your Message:
+        <textarea type="text" name="textarea" id="message"></textarea>
+      </label>
+    
+      <button type="submit">Send to WhatsApp</button>
+    </div>
   </form>
 
   <script>
@@ -538,7 +552,7 @@ color: white;
   let prices = [];
   let productNames = [];
 
-  function renderTables() {
+   function renderTables() {
     const container = document.getElementById("productTablesContainer");
     let globalIndex = 0;
 
@@ -552,7 +566,7 @@ color: white;
       table.innerHTML = `
         <thead>
           <tr>
-           <th>Product Name</th>
+            <th>Product Name</th>
             <th>Rate (₹)</th>
             <th>Content</th>
             <th>Qty</th>
@@ -560,21 +574,20 @@ color: white;
           </tr>
         </thead>
         <tbody>
-        ${group.items.map((item, idx) => {
-          const index = globalIndex + idx;
-          prices.push(item.rate);
-          productNames.push(item.name);
-          return `
-            <tr>
-           
-              <td>${item.name}</td>
-              <td>${item.rate.toFixed(2)}</td>
-              <td>${item.Content}</td>
-              <td><input type="number" min="0" value="0" onchange="updateRate(${index})"></td>
-              <td>₹<span id="cost${index}">0</span></td>
-            </tr>
-          `;
-        }).join("")}
+          ${group.items.map((item, idx) => {
+            const index = globalIndex + idx;
+            prices.push(item.rate);
+            productNames.push(item.name);
+            return `
+              <tr>
+                <td>${item.name}</td>
+                <td>${item.rate.toFixed(2)}</td>
+                <td>${item.Content}</td>
+                <td><input type="number" min="0" value="0" onchange="updateRate(${index})"></td>
+                <td>₹<span id="cost${index}">0</span></td>
+              </tr>
+            `;
+          }).join('')}
         </tbody>
       `;
       container.appendChild(table);
@@ -583,26 +596,27 @@ color: white;
   }
 
   function updateRate(index) {
-    const inputs = document.querySelectorAll('input[type="number"]');
-    const qty = parseInt(inputs[index].value) || 0;
-    const cost = qty * prices[index];
-    document.getElementById(`cost${index}`).textContent = cost.toFixed(2);
-    updateTotals();
+    const qtyInputs = document.querySelectorAll("input[type='number']");
+    const qty = parseInt(qtyInputs[index].value) || 0;
+    const cost = (qty * prices[index]).toFixed(2);
+    document.getElementById(`cost${index}`).innerText = cost;
+
+    calculateTotals();
   }
 
-  function updateTotals() {
+  function calculateTotals() {
     let totalBoxes = 0;
     let totalCost = 0;
-    const inputs = document.querySelectorAll('input[type="number"]');
 
-    inputs.forEach((input, index) => {
+    const qtyInputs = document.querySelectorAll("input[type='number']");
+    qtyInputs.forEach((input, index) => {
       const qty = parseInt(input.value) || 0;
       totalBoxes += qty;
       totalCost += qty * prices[index];
     });
 
-    document.getElementById("totalBoxes").textContent = totalBoxes;
-    document.getElementById("totalCost").textContent = totalCost.toFixed(2);
+    document.getElementById("totalBoxes").innerText = totalBoxes;
+    document.getElementById("totalCost").innerText = totalCost.toFixed(2);
   }
 
   function sendToWhatsApp() {
@@ -611,39 +625,44 @@ color: white;
     const email = document.getElementById("email").value.trim();
     const location = document.getElementById("location").value.trim();
     const message = document.getElementById("message").value.trim();
-    const inputs = document.querySelectorAll('input[type="number"]');
 
-    if (!name || !phone || !location || !email) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-
-    let orderSummary = "*Cracker Box Order Summary:*\n";
-    let totalBoxes = 0;
+    const qtyInputs = document.querySelectorAll("input[type='number']");
+    let orderDetails = "";
     let totalCost = 0;
 
-    inputs.forEach((input, index) => {
-      const qty = parseInt(input.value) || 0;
+    qtyInputs.forEach((input, index) => {
+      const qty = parseInt(input.value);
       if (qty > 0) {
-        const cost = qty * prices[index];
-        totalBoxes += qty;
-        totalCost += cost;
-        orderSummary += `• ${productNames[index]}: ${qty} Boxes - ₹${cost.toFixed(2)}\n`;
+        const itemCost = qty * prices[index];
+        totalCost += itemCost;
+        orderDetails += `\n🧨 ${productNames[index]} - Qty: ${qty} - ₹${itemCost.toFixed(2)}`;
       }
     });
 
-    orderSummary += `\n*Total Boxes:* ${totalBoxes}\n*Total Cost:* ₹${totalCost.toFixed(2)}\n\n`;
-    orderSummary += `*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Address:* ${location}\n`;
-    if (message) {
-      orderSummary += `*Message:* ${message}\n`;
+    if (!orderDetails) {
+      alert("Please select at least one product.");
+      return;
     }
 
-    const encodedMessage = encodeURIComponent(orderSummary);
-    const whatsappNumber = "916369471949"; // Replace with your actual number (with country code, no +)
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    const finalMessage = `🔥 *New Crackers Order* 🔥
+👤 Name: ${name}
+📞 Phone: ${phone}
+📧 Email: ${email}
+📍 Address: ${location}
+📝 Message: ${message}
+
+🧾 *Order Summary:* ${orderDetails}
+
+💰 *Total Cost:* ₹${totalCost.toFixed(2)}
+📦 *Total Boxes:* ${document.getElementById("totalBoxes").innerText}
+
+👉 Sent from: https://www.koushikcrackers.in`;
+
+    const encodedMsg = encodeURIComponent(finalMessage);
+    const whatsappURL = `https://wa.me/916369471949?text=${encodedMsg}`; // Replace with your number
 
     window.open(whatsappURL, "_blank");
-    // 🔄 Clear form and totals
+       // 🔄 Clear form and totals
   document.getElementById("crackerForm").reset();
   document.getElementById("totalBoxes").textContent = "0";
   document.getElementById("totalCost").textContent = "0";
@@ -654,6 +673,49 @@ color: white;
 
   // Initial render
   renderTables();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init('FMrOfdAywYKEG7jjq'); // Replace with your EmailJS user ID
+
+  function sendEmail() {
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const location = document.getElementById("location").value;
+    const message = document.getElementById("message").value;
+
+    // Create the order details message
+    const qtyInputs = document.querySelectorAll("input[type='number']");
+    let orderDetails = "";
+    qtyInputs.forEach((input, index) => {
+      const qty = parseInt(input.value);
+      if (qty > 0) {
+        orderDetails += `${productNames[index]}: Qty ${qty}, ₹${(qty * prices[index]).toFixed(2)}\n`;
+      }
+    });
+
+    const emailParams = {
+      to_name: name,
+      from_email: email,
+      phone,
+      location,
+      message,
+      order_details: orderDetails,
+    };
+
+    emailjs
+      .send("service_4ajfov9", "service_4ajfov9", emailParams)
+      .then(
+        (response) => {
+          alert("Email sent successfully!");
+        },
+        (error) => {
+          console.error("Failed to send email", error);
+          alert("Failed to send email.");
+        }
+      );
+  }
 </script>
 
 </body>
